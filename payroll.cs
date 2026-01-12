@@ -4,20 +4,20 @@
 /// <summary>
 /// Base Class Employee
 /// </summary>
-public abstract class Employees
+public abstract class Employee
 {
     #region Properties
     public int Id { get; }
     public string Name { get; }
     public string Designation { get; set; }
-    public string EmploymentType { get; set; }
+    public string EmploymentType { get; protected set; }
     public string Address { get; set; }
     public decimal GrossSalary { get; private set; }    
 
     #endregion
 
     #region Constructor
-    public Employees(int Id, string Name, string Designation, string Address, decimal baseSalary) 
+    public Employee(int Id, string Name, string Designation, string Address, decimal baseSalary) 
     {
         this.Id = Id; this.Name = Name; this.Designation = Designation; this.Address = Address; this.GrossSalary = baseSalary;
     }
@@ -31,7 +31,7 @@ public abstract class Employees
 /// <summary>
 /// Full Time Employee Class inheriting Employee Base Class
 /// </summary>
-public class FullTimeEmployee : Employees
+public class FullTimeEmployee : Employee
 {
     #region Constructor
     public FullTimeEmployee(int Id, string Name, string Designation, string Address, decimal baseSalary) : base(Id, Name, Designation, Address, baseSalary)
@@ -51,7 +51,7 @@ public class FullTimeEmployee : Employees
 /// <summary>
 /// Contract Employee Class inheriting Employee Base Class
 /// </summary>
-public class ContractEmployee : Employees
+public class ContractEmployee : Employee
 {
     #region Constructor
     public ContractEmployee(int Id, string Name, string Designation, string Address, decimal baseSalary) : base(Id, Name, Designation, Address, baseSalary)
@@ -98,33 +98,30 @@ public class PaySlip
 public class Notify
 {
     // Delegate Signature
-    public delegate void SalaryProcessed(Employees e, decimal salary);
+    public delegate void SalaryProcessed(Employee e, decimal salary);
 
     // Delegate Methods
-    public static void HRNotification(Employees e, decimal salary)
+    public static void HRNotification(Employee e, decimal salary)
     { 
         Console.WriteLine($"Salary Processed by HR : {salary}");
     }
-    public static void FinanceNotification(Employees e,decimal salary)
+    public static void FinanceNotification(Employee e,decimal salary)
     {
         Console.WriteLine($"Salary Processed by Finance Department: {salary}");
     }
 }
 
 /// <summary>
-/// Static storage of Employee Data 
+/// Static storage of Employee Data (inline memory)
 /// </summary>
-//public class EmpData
-//{
-//    private static List<Employees> EmpList = new();
+public class EmpData
+{
+    private static List<Employee> EmpList = new();
 
-//    public void AddEmp()
-//    {
-//        EmpList.Add(new Employees());
-//    }
+    public void AddEmployee(Employee e) { EmpList.Add(e); }
 
-//    public static List<Employees> GetEmp()
-//    {
-//        return EmpList;
-//    }
-//}
+    public static List<Employee> GetEmp()
+    {
+        return EmpList;
+    }
+}
