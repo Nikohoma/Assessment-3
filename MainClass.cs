@@ -7,22 +7,24 @@ public class MainClass
     public static void Main(string[] args)
     {
         #region PayRoll System
-        // List to store all employees
-        List<Employees> employees = new List<Employees>()
-        {
-            new FullTimeEmployee (1, "Nikhil", "SDE", "Delhi",1600000),
-            new ContractEmployee (2, "Punya", "HR", "Delhi", 900000),
-            new FullTimeEmployee (3, "Harsh", "Marketing", "Noida",180000),
-            new ContractEmployee (4, "Yashika", "Analyst", "Gurugram", 850000),
-            new ContractEmployee (5, "Abhinav", "Designer", "Himachal", 950000),
-            new FullTimeEmployee (6, "Vartika", "SWE", "Rajasthan", 1200000)
-        };
+
+        /// Storing All Employee data in inline memory (static Collection)
+        EmpData data = new EmpData();
+        data.AddEmployee(new FullTimeEmployee(1, "Nikhil", "SDE", "Delhi", 1600000));
+        data.AddEmployee(new ContractEmployee(2, "Punya", "HR", "Delhi", 900000));
+        data.AddEmployee(new FullTimeEmployee(3, "Harsh", "Marketing", "Noida", 180000));
+        data.AddEmployee(new ContractEmployee(4, "Yashika", "Analyst", "Gurugram", 850000));
+        data.AddEmployee(new FullTimeEmployee(5, "Abhinav", "Designer", "Himachal", 950000));
+        data.AddEmployee(new ContractEmployee(6, "Vartika", "SWE", "Rajasthan", 1200000));
+
+        // Calling Static Method to return the list of All Employees
+        EmpData.GetEmp();
 
         // List to store payslip of each employee
         List<PaySlip> payslips = new List<PaySlip>();
 
-        // Loop to calculate salary of each employee based on Employment type and appending each employee to the payslip list.
-        foreach (Employees e in employees)
+        // Loop to calculate Net Salary, Deductions, Adding Employees to payslip list and invoking delegate for each employee.
+        foreach (Employee e in EmpData.GetEmp())
         {
             // Gross Salary
             decimal grossSalary = e.GrossSalary;
@@ -33,12 +35,11 @@ public class MainClass
 
             // Adding the Employee to the PaySlip List
             payslips.Add(
-                new PaySlip(e.Id, e.Name, e.Designation, e.EmploymentType) { Salary = salary }                
+                new PaySlip(e.Id, e.Name, e.Designation, e.EmploymentType) { Salary = salary }
                 );
 
             // Printing Payslip of Each Employee
             Console.WriteLine($"\nId :{e.Id}, Name:{e.Name}, Designation : {e.Designation}, Gross Salary : {grossSalary}, Deductions: {Deductions}, Net Salary : {salary}");
-
 
             // Delegate
             Notify.SalaryProcessed notify = Notify.HRNotification;
@@ -48,6 +49,7 @@ public class MainClass
             notify(e, salary);
 
         }
+
         #endregion
 
         #region Order Processing
