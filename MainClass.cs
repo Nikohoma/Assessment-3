@@ -23,7 +23,7 @@ public class MainClass
         // List to store payslip of each employee
         List<PaySlip> payslips = new List<PaySlip>();
 
-        // Loop to calculate Net Salary, Deductions, Adding Employees to payslip list and invoking delegate for each employee.
+        // Loop to calculate Net Salary, Deductions, Adding Employees to payslip list and invoking delegate for each employee. (PayRoll Processing -Aggregation, Notification etc., of all kinds of employees)
         foreach (Employee e in EmpData.GetEmp())
         {
             // Gross Salary
@@ -56,6 +56,7 @@ public class MainClass
 
         Console.WriteLine("\nOrder Processing Outputs: ");
 
+        // Adding Products into a Dictionary
         Dictionary<int, Product> products = new()
         {
             {1,new Product(100, "Product A", 1000) },
@@ -66,10 +67,11 @@ public class MainClass
             {6,new Product(105, "Product F", 6000) },
 
         };
+
+        // Adding Customers in a List
         List<Customer> customers = new () { new Customer (1,"Customer A"), new Customer(2,"Customer B"), new Customer(3, "Customer C"), new Customer(4, "Customer D") };
 
         List<Order> orders = new();
-
         Order o1 = new Order(101, customers[0]);
         o1.Items.Add(new OrderItem(products[1], 1));
         o1.Items.Add(new OrderItem(products[2], 2));
@@ -77,7 +79,6 @@ public class MainClass
         o1.ChangeStatus(OrderStatus.Paid);
         o1.ChangeStatus(OrderStatus.Shipped);
         o1.ChangeStatus(OrderStatus.Delivered);
-
 
         Order o2 = new Order(102, customers[1]);
         o2.Items.Add(new OrderItem(products[3], 1));
