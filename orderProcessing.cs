@@ -76,6 +76,9 @@ public class StatusHistory
     }
 }
 
+/// <summary>
+/// Notification Class executing Delegate
+/// </summary>
 public class NotifyStatus
 {
     // Delegate Signature
@@ -109,11 +112,14 @@ public class Order
     }
         #endregion
 
-
     public NotifyStatus.StatusNotification NotifyStatus;
 
     #region Methods
 
+    /// <summary>
+    /// Safe Checking the new order status without Assigning it to the current order status
+    /// </summary>
+    /// <param name="newStatus"></param>
     public void ChangeStatus(OrderStatus newStatus)
     {
         if (Status == OrderStatus.Cancelled) { Console.WriteLine("Order is Cancelled."); return; }
@@ -125,6 +131,10 @@ public class Order
         NotifyStatus?.Invoke(customer, newStatus);
     }
     
+    /// <summary>
+    /// To calculate the total Amount of the order.
+    /// </summary>
+    /// <returns></returns>
     public decimal TotaLAmount()
         {
             decimal total = 0;
