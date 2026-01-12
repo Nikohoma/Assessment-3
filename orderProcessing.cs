@@ -1,6 +1,8 @@
 ﻿namespace OrderProcessing;
 
-
+/// <summary>
+/// Enum to store OrderStatus
+/// </summary>
 public enum OrderStatus
 {
     Paid,
@@ -11,7 +13,9 @@ public enum OrderStatus
     Cancelled
 }
 
-
+/// <summary>
+/// Product class having all relevant information of the product
+/// </summary>
 public class Product
 {
     #region Properties
@@ -29,6 +33,9 @@ public class Product
     #endregion
 }
 
+/// <summary>
+/// Customer Class holding id and name of the customer
+/// </summary>
 public class Customer
 {
     #region Properties
@@ -45,6 +52,9 @@ public class Customer
 
 }
 
+/// <summary>
+/// Class holding the PRoduct and Quantity of the product in order. Also calculates total amount by multiplying no. of product with quantity.
+/// </summary>
 public class OrderItem
 {
     #region Properties
@@ -77,7 +87,7 @@ public class StatusHistory
 }
 
 /// <summary>
-/// Notification Class executing Delegate
+/// Notification Class executing Delegate.
 /// </summary>
 public class NotifyStatus
 {
@@ -94,6 +104,9 @@ public class NotifyStatus
 
 }
 
+/// <summary>
+/// Order Class that takes id and customer as input, has statusHistory list that tracks Order Status. Has methods that validate the order status.
+/// </summary>
 public class Order
 {
     #region Properties
@@ -112,6 +125,7 @@ public class Order
     }
         #endregion
 
+    // Delegate Variable
     public NotifyStatus.StatusNotification NotifyStatus;
 
     #region Methods
@@ -128,14 +142,14 @@ public class Order
 
         Status = newStatus;
         statusHistory.Add($"{newStatus}");
-        NotifyStatus?.Invoke(customer, newStatus);
+        NotifyStatus?.Invoke(customer, newStatus);  // Invoking Delegate
     }
     
     /// <summary>
     /// To calculate the total Amount of the order.
     /// </summary>
     /// <returns></returns>
-    public decimal TotaLAmount()
+    public decimal TotalAmount()
         {
             decimal total = 0;
 
